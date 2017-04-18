@@ -1,4 +1,4 @@
-FROM node:4-onbuild
+FROM node:7.9.0-alpine
 #RUN mkdir -p /server/www
 ADD . /server/www/
 WORKDIR /server/www/
