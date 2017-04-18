@@ -2,6 +2,7 @@
   "name": "shangbiao",
   "version": "0.0.0",
   "private": true,
+  "author": "zhaojunlike@gmail.com",
   "scripts": {
     "start": "node ./bin/www"
   },
