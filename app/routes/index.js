@@ -18,6 +18,7 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
         keyword: keywords,
         pageSize: 50,
         pageNo: page,
+        searchType: 1
     });
 
     API_ROUTES.trademark.path += postData;
