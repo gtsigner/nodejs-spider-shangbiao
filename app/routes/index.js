@@ -4,12 +4,10 @@ const http = require("http");
 const queryString = require("querystring");
 const spider = require("../spider/control");
 /* GET home page. */
-const API_ROUTES = require('../conf/config');
-
-//http://www.juhe.cn, 13482264559  a12345
+const API_ROUTES = require('../conf/config').API_ROUTES;
 
 //中转商标
-router.get('/api/trademark/:keywords/:page', function (req, res, next) {
+router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
     //res.render('index', { title: 'Express' });
     //HTTP
     let keywords = req.param("keywords");
@@ -53,7 +51,7 @@ router.get('/api/trademark/:keywords/:page', function (req, res, next) {
 });
 
 //中转专利
-router.get('/api/patent/:keywords/:page', function (req, res, next) {
+router.get('/api/v2/patent/:keywords/:page', function (req, res, next) {
     //HTTP
     let keywords = req.param("keywords");
     let page = req.param("page");
@@ -96,7 +94,8 @@ router.get('/api/patent/:keywords/:page', function (req, res, next) {
 });
 
 
-router.get('/api/back/:keywords/:page', function (req, res, next) {
+//商标Spider采集
+router.get('/api/v1/trademark/:keywords/:page', function (req, res, next) {
     //res.render('index', { title: 'Express' });
     //HTTP
     let keywords = req.param("keywords");
@@ -104,7 +103,6 @@ router.get('/api/back/:keywords/:page', function (req, res, next) {
     if (!page) {
         page = 1;
     }
-
 
     let data = spider.search(keywords, page, function (data) {
         let json = {};

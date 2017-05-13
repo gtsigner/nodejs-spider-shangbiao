@@ -1,6 +1,8 @@
 /**
  * Created by zhaojunlike on 2017/5/13.
  */
+
+//http://www.juhe.cn, 13482264559  a12345
 exports.API_ROUTES = {
     trademark: {
         hostname: 'japi.juhe.cn',
