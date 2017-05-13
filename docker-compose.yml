@@ -1,0 +1,7 @@
+version: '2'
+  services:
+    app:
+      build: .
+      container_name: sb_app
+      volumes:
+        - ./app:/server/www
