@@ -4,10 +4,23 @@
 
 //http://www.juhe.cn, 13482264559  a12345
 exports.API_ROUTES = {
+    //商标搜索
     trademark: {
         hostname: 'japi.juhe.cn',
         port: 80,
         path: '/trademark/search?',
+        method: 'GET',
+        key: "6685f44a8611ea8fae3b71317fc64d25",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+        }
+    },
+    //商标详细
+    trademark_detail: {
+        hostname: 'japi.juhe.cn',
+        port: 80,
+        path: '/trademark/detail?',
         method: 'GET',
         key: "6685f44a8611ea8fae3b71317fc64d25",
         headers: {

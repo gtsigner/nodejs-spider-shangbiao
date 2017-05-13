@@ -16,7 +16,7 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
     let postData = queryString.stringify({
         key: API_ROUTES.trademark.key,
         keyword: keywords,
-        pageSize: 50,
+        pageSize: 20,
         pageNo: page,
         searchType: 1
     });
@@ -25,6 +25,49 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
 
     //中转请求
     let request = http.request(API_ROUTES.trademark, function (response) {
+        let json = {};
+        let total = "";
+
+        response.on('data', (chunk) => {
+            total += chunk;
+        });
+
+        response.on('end', () => {
+            total = JSON.parse(total);
+            json = {
+                data: total,
+                code: 200,
+                msg: "success",
+            };
+            res.set({
+                'Access-Control-Allow-Origin': '*'
+            });
+            res.json(json);
+        });
+    });
+    request.on('error', (err) => {
+        res.end();
+    });
+    request.end();
+});
+
+//商标详细
+router.get('/api/v2/trademark/detail/:regNo/:intCls', function (req, res, next) {
+    //res.render('index', { title: 'Express' });
+    //HTTP
+    let regNo = req.param("regNo");
+    let intCls = req.param("intCls");
+
+    let postData = queryString.stringify({
+        key: API_ROUTES.trademark_detail.key,
+        regNo: regNo,
+        intCls: intCls,
+    });
+
+    API_ROUTES.trademark_detail.path += postData;
+
+    //中转请求
+    let request = http.request(API_ROUTES.trademark_detail, function (response) {
         let json = {};
         let total = "";
 
