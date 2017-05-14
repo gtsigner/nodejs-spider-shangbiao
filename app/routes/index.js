@@ -12,6 +12,7 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
     //HTTP
     let keywords = req.param("keywords");
     let page = req.param("page");
+    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.trademark));
 
     let postData = queryString.stringify({
         key: API_ROUTES.trademark.key,
@@ -20,11 +21,9 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
         pageNo: page,
         searchType: 1
     });
-
-    API_ROUTES.trademark.path += postData;
-
+    tmpPackage.path += postData;
     //中转请求
-    let request = http.request(API_ROUTES.trademark, function (response) {
+    let request = http.request(tmpPackage, function (response) {
         let json = {};
         let total = "";
 
@@ -45,6 +44,7 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
             res.json(json);
         });
     });
+
     request.on('error', (err) => {
         res.end();
     });
@@ -53,21 +53,20 @@ router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
 
 //商标详细
 router.get('/api/v2/trademark/detail/:regNo/:intCls', function (req, res, next) {
-    //res.render('index', { title: 'Express' });
     //HTTP
     let regNo = req.param("regNo");
     let intCls = req.param("intCls");
+    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.trademark_detail));
 
     let postData = queryString.stringify({
         key: API_ROUTES.trademark_detail.key,
         regNo: regNo,
         intCls: intCls,
     });
-
-    API_ROUTES.trademark_detail.path += postData;
+    tmpPackage.path += postData;
 
     //中转请求
-    let request = http.request(API_ROUTES.trademark_detail, function (response) {
+    let request = http.request(tmpPackage, function (response) {
         let json = {};
         let total = "";
 
@@ -99,7 +98,8 @@ router.get('/api/v2/patent/:keywords/:page', function (req, res, next) {
     //HTTP
     let keywords = req.param("keywords");
     let page = req.param("page");
-
+    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.parent));
+    
     let postData = queryString.stringify({
         key: API_ROUTES.patent.key,
         q: keywords,
@@ -107,10 +107,10 @@ router.get('/api/v2/patent/:keywords/:page', function (req, res, next) {
         p: page,
     });
 
-    API_ROUTES.patent.path += postData;
+    tmpPackage.path += postData;
 
     //中转请求
-    let request = http.request(API_ROUTES.patent, function (response) {
+    let request = http.request(tmpPackage, function (response) {
         let json = {};
         let total = "";
 
@@ -136,7 +136,6 @@ router.get('/api/v2/patent/:keywords/:page', function (req, res, next) {
     });
     request.end();
 });
-
 
 //商标Spider采集
 router.get('/api/v1/trademark/:keywords/:page', function (req, res, next) {

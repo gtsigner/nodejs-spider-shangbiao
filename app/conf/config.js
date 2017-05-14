@@ -3,10 +3,11 @@
  */
 
 //http://www.juhe.cn, 13482264559  a12345
-exports.API_ROUTES = {
+module.exports.API_ROUTES = {
     //商标搜索
     trademark: {
         hostname: 'japi.juhe.cn',
+        timeout: 3000,
         port: 80,
         path: '/trademark/search?',
         method: 'GET',
@@ -20,6 +21,7 @@ exports.API_ROUTES = {
     trademark_detail: {
         hostname: 'japi.juhe.cn',
         port: 80,
+        timeout: 3000,
         path: '/trademark/detail?',
         method: 'GET',
         key: "6685f44a8611ea8fae3b71317fc64d25",
@@ -31,6 +33,7 @@ exports.API_ROUTES = {
     patent: {
         hostname: 'v.juhe.cn',
         port: 80,
+        timeout: 3000,
         path: '/patent/search.php?',
         method: 'GET',
         key: "e9135f40a861b8d5f52cab763f0a30d1",
