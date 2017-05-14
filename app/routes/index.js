@@ -98,8 +98,8 @@ router.get('/api/v2/patent/:keywords/:page', function (req, res, next) {
     //HTTP
     let keywords = req.param("keywords");
     let page = req.param("page");
-    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.parent));
-    
+    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.patent));
+
     let postData = queryString.stringify({
         key: API_ROUTES.patent.key,
         q: keywords,
