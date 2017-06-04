@@ -7,20 +7,25 @@ const spider = require("../spider/control");
 const API_ROUTES = require('../conf/config').API_ROUTES;
 
 //中转商标
-router.get('/api/v2/trademark/:keywords/:page', function (req, res, next) {
+router.get('/api/v2/trademark/:keywords/:page/:searchType', function (req, res, next) {
     //res.render('index', { title: 'Express' });
     //HTTP
     let keywords = req.param("keywords");
     let page = req.param("page");
+    let searchType = req.param("searchType");
     let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.trademark));
+    if (parseInt(searchType) > 4 || parseInt(searchType) < 1) {
+        searchType = 4;
+    }
 
     let postData = queryString.stringify({
         key: API_ROUTES.trademark.key,
         keyword: keywords,
         pageSize: 20,
         pageNo: page,
-        searchType: 1
+        searchType: searchType
     });
+
     tmpPackage.path += postData;
     //中转请求
     let request = http.request(tmpPackage, function (response) {
@@ -87,6 +92,51 @@ router.get('/api/v2/trademark/detail/:regNo/:intCls', function (req, res, next) 
             res.json(json);
         });
     });
+    request.on('error', (err) => {
+        res.end();
+    });
+    request.end();
+});
+
+//商标高级查询
+router.get('/api/v2/trademark_search/:keywords/:page', function (req, res, next) {
+    //res.render('index', { title: 'Express' });
+    //HTTP
+    let keywords = req.param("keywords");
+    let page = req.param("page");
+    let tmpPackage = JSON.parse(JSON.stringify(API_ROUTES.trademark));
+
+    let postData = queryString.stringify({
+        key: API_ROUTES.trademark.key,
+        keyword: keywords,
+        pageSize: 20,
+        pageNo: page,
+        searchType: 1
+    });
+    tmpPackage.path += postData;
+    //中转请求
+    let request = http.request(tmpPackage, function (response) {
+        let json = {};
+        let total = "";
+
+        response.on('data', (chunk) => {
+            total += chunk;
+        });
+
+        response.on('end', () => {
+            total = JSON.parse(total);
+            json = {
+                data: total,
+                code: 200,
+                msg: "success",
+            };
+            res.set({
+                'Access-Control-Allow-Origin': '*'
+            });
+            res.json(json);
+        });
+    });
+
     request.on('error', (err) => {
         res.end();
     });
