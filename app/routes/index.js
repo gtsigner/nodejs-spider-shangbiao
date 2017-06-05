@@ -71,6 +71,7 @@ router.get('/api/v2/trademark/detail/:regNo/:intCls', function (req, res, next) 
     tmpPackage.path += postData;
 
     //中转请求
+    console.log(tmpPackage);
     let request = http.request(tmpPackage, function (response) {
         let json = {};
         let total = "";
