@@ -84,7 +84,7 @@ router.get('/api/v2/trademark/detail/:regNo/:intCls', function (req, res, next) 
             json = {
                 data: total,
                 code: 200,
-                msg: "success",
+                msg: "detail_success",
             };
             res.set({
                 'Access-Control-Allow-Origin': '*'
